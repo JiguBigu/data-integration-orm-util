@@ -1,0 +1,39 @@
+#main{
+  float: left;
+  width: 75%;
+}
+
+#success-info{
+  width: 240px;
+  display: none;
+  margin-top: 5%;
+  margin-left: 25%;
+  position: absolute;
+}
+
+#error-info{
+  width: 240px;
+  display: none;
+  margin-top: 15%;
+  margin-left: 25%;
+  position: absolute;
+  color: #a94442;
+  background-color: #FFCCCC;
+  border-color: #FF9966;
+}
+
+
+.btn btn-info, .btn-delete{
+  background: crimson;
+}
+
+.col-sm-3, col-md-2, sidebar{
+  background-color: rgb(48, 65, 86);
+  margin-right: 3%;
+  font-size: medium;
+  color: silver;
+  text-align: left;
+}
+.form-control{
+  margin-bottom: 1%;
+}

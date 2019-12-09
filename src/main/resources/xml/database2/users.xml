@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper>
+    <resultMap type="intergration.entity.User" >
+        <id jdbcType="BIGINT" primaryKey="true">id</id>
+        <userName jdbcType="VARCHAR" >user_name</userName>
+        <userSex jdbcType="VARCHAR">user_sex</userSex>
+        <className jdbcType="VARCHAR">class_name</className>
+    </resultMap>
+</mapper>

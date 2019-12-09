@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper>
+    <resultMap type="intergration.entity.Lesson" >
+        <lessonId jdbcType="BIGINT" primaryKey="true">lesson_id</lessonId>
+        <lessonName jdbcType="VARCHAR" >lesson_name</lessonName>
+        <teacherName jdbcType="VARCHAR">teacher_name</teacherName>
+        <hours jdbcType="INT">period</hours>
+    </resultMap>
+
+</mapper>
