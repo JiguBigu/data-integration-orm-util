@@ -1,9 +1,8 @@
-package intergration.controller.user;
+package intergration.example.controller.lesson;
 
 import com.alibaba.fastjson.JSON;
-import intergration.Service.UserService;
-import intergration.Service.impl.UserServiceImpl;
-import intergration.entity.User;
+import intergration.example.Service.LessonService;
+import intergration.example.Service.impl.LessonServiceImpl;
 import org.xml.sax.SAXException;
 
 import javax.servlet.ServletException;
@@ -20,41 +19,35 @@ import java.util.Map;
 /**
  * @author Jigubigu
  * @version 1.0
- * @date 2019/10/13 20:30
+ * @date 2019/10/13 20:42
  */
-@WebServlet("/user/getUserById")
-public class GetUserById extends HttpServlet {
+@WebServlet("/lesson/deleteLessonById")
+public class DeleteLessonById extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("userId");
+        String id = req.getParameter("lessonId");
 
-        boolean success = false;
-        UserService userService = new UserServiceImpl();
+        LessonService lessonService = new LessonServiceImpl();
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        User user = null;
+        boolean success = false;
         try {
-            user = userService.getUserById(id);
+            if(lessonService.deleteLessonById(id)){
+                success = true;
+            }
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (SAXException e) {
             e.printStackTrace();
         }
-        if(user != null){
-            success = true;
-        }
         modelMap.put("success", success);
-        modelMap.put("user", user);
 
         //数据转换成json向浏览器发送
-        resp.setCharacterEncoding("UTF-8");
-        resp.setContentType("text/html,charset=UTF-8");
-        String data = JSON.toJSONString(modelMap);
+        String outStr = JSON.toJSONString(modelMap);
         PrintWriter out = resp.getWriter();
-        out.println(data);
+        out.println(outStr);
         out.flush();
         out.close();
-
     }
 
     @Override

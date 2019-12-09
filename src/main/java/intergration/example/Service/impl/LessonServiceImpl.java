@@ -1,8 +1,8 @@
-package intergration.Service.impl;
+package intergration.example.Service.impl;
 
-import intergration.Service.LessonService;
-import intergration.entity.Lesson;
-import intergration.mapper.LessonMapper;
+import intergration.example.Service.LessonService;
+import intergration.example.entity.Lesson;
+import intergration.example.mapper.LessonMapper;
 import intergration.util.integration.share.IntegrationSetting;
 import intergration.util.integration.util.XMLUtil;
 import org.xml.sax.SAXException;

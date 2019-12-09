@@ -1,8 +1,8 @@
-package intergration.Service.impl;
+package intergration.example.Service.impl;
 
-import intergration.Service.UserService;
-import intergration.entity.User;
-import intergration.mapper.UserMapper;
+import intergration.example.Service.UserService;
+import intergration.example.entity.User;
+import intergration.example.mapper.UserMapper;
 import intergration.util.integration.share.IntegrationSetting;
 import intergration.util.integration.util.XMLUtil;
 import org.xml.sax.SAXException;

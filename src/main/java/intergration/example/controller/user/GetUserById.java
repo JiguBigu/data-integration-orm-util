@@ -1,9 +1,9 @@
-package intergration.controller.user;
+package intergration.example.controller.user;
 
 import com.alibaba.fastjson.JSON;
-import intergration.Service.UserService;
-import intergration.Service.impl.UserServiceImpl;
-import intergration.entity.User;
+import intergration.example.Service.UserService;
+import intergration.example.Service.impl.UserServiceImpl;
+import intergration.example.entity.User;
 import org.xml.sax.SAXException;
 
 import javax.servlet.ServletException;
@@ -20,36 +20,45 @@ import java.util.Map;
 /**
  * @author Jigubigu
  * @version 1.0
- * @date 2019/10/13 20:50
+ * @date 2019/10/13 20:30
  */
-@WebServlet("/user/insertUser")
-public class InsertUser extends HttpServlet {
+@WebServlet("/user/getUserById")
+public class GetUserById extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = new User(req.getParameter("userId"), req.getParameter("userName"),
-                req.getParameter("userSex"), req.getParameter("className"));
-        String databaseName = req.getParameter("databaseName");
+        String id = req.getParameter("userId");
 
         boolean success = false;
         UserService userService = new UserServiceImpl();
         Map<String, Object> modelMap = new HashMap<String, Object>();
+        User user = null;
         try {
-            if(userService.insertUser(user, databaseName)){
-                success = true;
-            }
+            user = userService.getUserById(id);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (SAXException e) {
             e.printStackTrace();
         }
+        if(user != null){
+            success = true;
+        }
         modelMap.put("success", success);
+        modelMap.put("user", user);
 
         //数据转换成json向浏览器发送
-        String outStr = JSON.toJSONString(modelMap);
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html,charset=UTF-8");
+        String data = JSON.toJSONString(modelMap);
         PrintWriter out = resp.getWriter();
-        out.println(outStr);
+        out.println(data);
         out.flush();
         out.close();
+
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doPost(req, resp);
     }
 }

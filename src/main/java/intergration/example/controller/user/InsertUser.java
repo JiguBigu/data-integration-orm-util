@@ -1,8 +1,9 @@
-package intergration.controller.lesson;
+package intergration.example.controller.user;
 
 import com.alibaba.fastjson.JSON;
-import intergration.Service.LessonService;
-import intergration.Service.impl.LessonServiceImpl;
+import intergration.example.Service.UserService;
+import intergration.example.Service.impl.UserServiceImpl;
+import intergration.example.entity.User;
 import org.xml.sax.SAXException;
 
 import javax.servlet.ServletException;
@@ -19,20 +20,22 @@ import java.util.Map;
 /**
  * @author Jigubigu
  * @version 1.0
- * @date 2019/10/13 20:42
+ * @date 2019/10/13 20:50
  */
-@WebServlet("/lesson/deleteLessonById")
-public class DeleteLessonById extends HttpServlet {
+@WebServlet("/user/insertUser")
+public class InsertUser extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("lessonId");
+        User user = new User(req.getParameter("userId"), req.getParameter("userName"),
+                req.getParameter("userSex"), req.getParameter("className"));
+        String databaseName = req.getParameter("databaseName");
 
-        LessonService lessonService = new LessonServiceImpl();
-        Map<String, Object> modelMap = new HashMap<String, Object>();
         boolean success = false;
+        UserService userService = new UserServiceImpl();
+        Map<String, Object> modelMap = new HashMap<String, Object>();
         try {
-            if(lessonService.deleteLessonById(id)){
+            if(userService.insertUser(user, databaseName)){
                 success = true;
             }
         } catch (ParserConfigurationException e) {
@@ -48,10 +51,5 @@ public class DeleteLessonById extends HttpServlet {
         out.println(outStr);
         out.flush();
         out.close();
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req, resp);
     }
 }

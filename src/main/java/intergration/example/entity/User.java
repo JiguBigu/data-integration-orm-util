@@ -1,4 +1,4 @@
-package intergration.entity;
+package intergration.example.entity;
 
 import intergration.util.integration.ifs.IntegrationEntity;
 

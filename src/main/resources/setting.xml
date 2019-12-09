@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <setting>
     <database id="test1">
-        <table id="users" entityType="intergration.entity.User">/xml/database1/users.xml</table>
-        <table id="lesson" entityType="intergration.entity.Lesson">/xml/database1/lesson.xml</table>
+        <table id="users" entityType="intergration.example.entity.User">/xml/database1/users.xml</table>
+        <table id="lesson" entityType="intergration.example.entity.Lesson">/xml/database1/lesson.xml</table>
     </database>
 
     <database id="test2">
-        <table id="users" entityType="intergration.entity.User">/xml/database2/users.xml</table>
-        <table id="lesson" entityType="intergration.entity.Lesson">/xml/database2/lesson.xml</table>
+        <table id="users" entityType="intergration.example.entity.User">/xml/database2/users.xml</table>
+        <table id="lesson" entityType="intergration.example.entity.Lesson">/xml/database2/lesson.xml</table>
     </database>
 </setting>

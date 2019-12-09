@@ -1,9 +1,9 @@
-package intergration.controller.lesson;
+package intergration.example.controller.user;
 
 import com.alibaba.fastjson.JSON;
-import intergration.Service.LessonService;
-import intergration.Service.impl.LessonServiceImpl;
-import intergration.entity.Lesson;
+import intergration.example.Service.UserService;
+import intergration.example.Service.impl.UserServiceImpl;
+import intergration.example.entity.User;
 import org.xml.sax.SAXException;
 
 import javax.servlet.ServletException;
@@ -20,27 +20,28 @@ import java.util.Map;
 /**
  * @author Jigubigu
  * @version 1.0
- * @date 2019/10/13 20:50
+ * @date 2019/10/13 20:45
  */
-@WebServlet("/lesson/insertLesson")
-public class InsertLesson extends HttpServlet {
+@WebServlet("/user/updateUser")
+public class UpdateUser extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Lesson lesson = new Lesson(req.getParameter("lessonId"), req.getParameter("lessonName"),
-                req.getParameter("teacherName"), req.getParameter("hours"));
-        String databaseName = req.getParameter("databaseName");
+        User user = new User(req.getParameter("userId"), req.getParameter("userName"),
+                req.getParameter("userSex"), req.getParameter("className"));
 
-        Map<String, Object> modelMap = new HashMap<String, Object>();
-        LessonService lessonService = new LessonServiceImpl();
         boolean success = false;
+        UserService userService = new UserServiceImpl();
+        Map<String, Object> modelMap = new HashMap<String, Object>();
         try {
-            if(lessonService.insertLesson(lesson, databaseName)){
+            if(userService.updateUser(user)){
                 success = true;
             }
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
         modelMap.put("success", success);
@@ -51,5 +52,10 @@ public class InsertLesson extends HttpServlet {
         out.println(outStr);
         out.flush();
         out.close();
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doPost(req, resp);
     }
 }

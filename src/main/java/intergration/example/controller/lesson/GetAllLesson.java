@@ -1,9 +1,9 @@
-package intergration.controller.user;
+package intergration.example.controller.lesson;
 
-import com.alibaba.fastjson.JSONObject;
-import intergration.Service.UserService;
-import intergration.Service.impl.UserServiceImpl;
-import intergration.entity.User;
+import com.alibaba.fastjson.JSON;
+import intergration.example.Service.LessonService;
+import intergration.example.Service.impl.LessonServiceImpl;
+import intergration.example.entity.Lesson;
 import org.xml.sax.SAXException;
 
 import javax.servlet.ServletException;
@@ -21,25 +21,25 @@ import java.util.Map;
 /**
  * @author Jigubigu
  * @version 1.0
- * @date 2019/10/10 19:22
+ * @date 2019/10/13 20:53
  */
-@WebServlet("/user/getAllUser")
-public class GetAllUser extends HttpServlet {
-
+@WebServlet("/lesson/getAllLesson")
+public class GetAllLesson extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        LessonService lessonService = new LessonServiceImpl();
+
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        UserService userService = new UserServiceImpl();
-        List<User> users = null;
+        List<Lesson> lessonList = null;
         try {
-            users = userService.getAllUser();
+            lessonList = lessonService.getAllLesson();
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (SAXException e) {
             e.printStackTrace();
         }
-        modelMap.put("user", users);
-        if(users == null){
+        modelMap.put("lesson", lessonList);
+        if(lessonList == null){
             modelMap.put("success", false);
         }else {
             modelMap.put("success", true);
@@ -48,9 +48,9 @@ public class GetAllUser extends HttpServlet {
         //数据转换成json向浏览器发送
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html,charset=UTF-8");
-        JSONObject data = new JSONObject(modelMap);
+        String outStr = JSON.toJSONString(modelMap);
         PrintWriter out = resp.getWriter();
-        out.println(data);
+        out.println(outStr);
         out.flush();
         out.close();
     }

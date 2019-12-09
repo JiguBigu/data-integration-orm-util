@@ -1,6 +1,6 @@
 package intergration.util.integration.util;
 
-import intergration.entity.User;
+import intergration.example.entity.User;
 import intergration.util.integration.share.IntegrationSetting;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;

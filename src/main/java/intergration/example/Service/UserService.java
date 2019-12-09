@@ -1,6 +1,6 @@
-package intergration.Service;
+package intergration.example.Service;
 
-import intergration.entity.User;
+import intergration.example.entity.User;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;

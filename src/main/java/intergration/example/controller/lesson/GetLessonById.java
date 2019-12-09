@@ -1,9 +1,9 @@
-package intergration.controller.lesson;
+package intergration.example.controller.lesson;
 
 import com.alibaba.fastjson.JSON;
-import intergration.Service.LessonService;
-import intergration.Service.impl.LessonServiceImpl;
-import intergration.entity.Lesson;
+import intergration.example.Service.LessonService;
+import intergration.example.Service.impl.LessonServiceImpl;
+import intergration.example.entity.Lesson;
 import org.xml.sax.SAXException;
 
 import javax.servlet.ServletException;
@@ -15,35 +15,36 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
  * @author Jigubigu
  * @version 1.0
- * @date 2019/10/13 20:53
+ * @date 2019/10/13 20:30
  */
-@WebServlet("/lesson/getAllLesson")
-public class GetAllLesson extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        LessonService lessonService = new LessonServiceImpl();
+@WebServlet("/lesson/getLessonById")
+public class GetLessonById extends HttpServlet {
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("lessonId");
+
+        LessonService lessonService = new LessonServiceImpl();
         Map<String, Object> modelMap = new HashMap<String, Object>();
-        List<Lesson> lessonList = null;
+        boolean success = false;
+        Lesson lesson = null;
         try {
-            lessonList = lessonService.getAllLesson();
+            lesson = lessonService.getLessonById(id);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (SAXException e) {
             e.printStackTrace();
         }
-        modelMap.put("lesson", lessonList);
-        if(lessonList == null){
-            modelMap.put("success", false);
-        }else {
-            modelMap.put("success", true);
+        if(lesson != null){
+            success = true;
         }
+        modelMap.put("success", success);
+        modelMap.put("lesson", lesson);
 
         //数据转换成json向浏览器发送
         resp.setCharacterEncoding("UTF-8");
@@ -53,10 +54,11 @@ public class GetAllLesson extends HttpServlet {
         out.println(outStr);
         out.flush();
         out.close();
+
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req, resp);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doPost(req, resp);
     }
 }

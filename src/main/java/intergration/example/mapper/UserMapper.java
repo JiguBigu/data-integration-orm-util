@@ -1,7 +1,7 @@
-package intergration.mapper;
+package intergration.example.mapper;
 
 
-import intergration.entity.User;
+import intergration.example.entity.User;
 import intergration.util.integration.share.IntegrationSetting;
 import intergration.util.integration.util.MapperUtil;
 

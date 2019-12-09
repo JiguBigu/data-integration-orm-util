@@ -1,9 +1,9 @@
-package intergration.controller.lesson;
+package intergration.example.controller.lesson;
 
 import com.alibaba.fastjson.JSON;
-import intergration.Service.LessonService;
-import intergration.Service.impl.LessonServiceImpl;
-import intergration.entity.Lesson;
+import intergration.example.Service.LessonService;
+import intergration.example.Service.impl.LessonServiceImpl;
+import intergration.example.entity.Lesson;
 import org.xml.sax.SAXException;
 
 import javax.servlet.ServletException;
@@ -20,45 +20,43 @@ import java.util.Map;
 /**
  * @author Jigubigu
  * @version 1.0
- * @date 2019/10/13 20:30
+ * @date 2019/10/13 20:45
  */
-@WebServlet("/lesson/getLessonById")
-public class GetLessonById extends HttpServlet {
+@WebServlet("/lesson/updateLesson")
+public class UpdateLesson extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("lessonId");
+        Lesson lesson = new Lesson(req.getParameter("lessonId"), req.getParameter("lessonName"),
+                req.getParameter("teacherName"), req.getParameter("hours"));
 
-        LessonService lessonService = new LessonServiceImpl();
         Map<String, Object> modelMap = new HashMap<String, Object>();
+        LessonService lessonService = new LessonServiceImpl();
         boolean success = false;
-        Lesson lesson = null;
         try {
-            lesson = lessonService.getLessonById(id);
+            if(lessonService.updateLesson(lesson)){
+                success = true;
+            }
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (SAXException e) {
             e.printStackTrace();
-        }
-        if(lesson != null){
-            success = true;
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
         modelMap.put("success", success);
-        modelMap.put("lesson", lesson);
 
         //数据转换成json向浏览器发送
-        resp.setCharacterEncoding("UTF-8");
-        resp.setContentType("text/html,charset=UTF-8");
         String outStr = JSON.toJSONString(modelMap);
         PrintWriter out = resp.getWriter();
         out.println(outStr);
         out.flush();
         out.close();
-
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doGet(req, resp);
         doPost(req, resp);
     }
 }
