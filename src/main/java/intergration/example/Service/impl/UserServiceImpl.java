@@ -18,7 +18,13 @@ import java.util.List;
  * @date 2019/10/10 21:12
  */
 public class UserServiceImpl implements UserService {
+    /**
+     * 配置类列表
+     */
     private List<IntegrationSetting> integrationSettingList;
+    /**
+     * 当前类类名
+     */
     private static final String CLASS_NAME = User.class.getName();
 
     public UserServiceImpl(){
@@ -38,7 +44,7 @@ public class UserServiceImpl implements UserService {
      * 获取所有数据库中的用户数据
      * @return 学生列表
      */
-    public List<User> getAllUser() throws ParserConfigurationException, SAXException, IOException {
+    public List<User> getAllUser() {
         List<User> userList = new ArrayList<User>();
         for(IntegrationSetting setting: integrationSettingList){
             UserMapper userMapper = new UserMapper(setting, User.class);
@@ -52,7 +58,7 @@ public class UserServiceImpl implements UserService {
      * @param id 学号
      * @return 学生
      */
-    public User getUserById(String id) throws ParserConfigurationException, SAXException, IOException {
+    public User getUserById(String id) {
         User user;
         for(IntegrationSetting setting: integrationSettingList){
             UserMapper userMapper = new UserMapper(setting, User.class);
@@ -70,7 +76,7 @@ public class UserServiceImpl implements UserService {
      * @param databaseName 数据库名
      * @return 成功标志
      */
-    public boolean insertUser(User user, String databaseName) throws ParserConfigurationException, SAXException, IOException {
+    public boolean insertUser(User user, String databaseName) {
         if (databaseName == null || databaseName.length() <= 0){
             throw new RuntimeException("未指定数据库");
         }
@@ -101,7 +107,7 @@ public class UserServiceImpl implements UserService {
      * @param user 学生实体
      * @return 成功标志
      */
-    public boolean updateUser(User user) throws IOException, ParserConfigurationException, SAXException, IllegalAccessException {
+    public boolean updateUser(User user) {
         if (user.getId() == null || user.getId().length() <= 0){
             throw new RuntimeException("更新错误：未传入用户id");
         }
@@ -119,7 +125,7 @@ public class UserServiceImpl implements UserService {
      * @param id 学号
      * @return 成功标志
      */
-    public boolean deleteUserById(String id) throws ParserConfigurationException, SAXException, IOException {
+    public boolean deleteUserById(String id) {
         if (id == null || id.length() <= 0){
             throw new RuntimeException("删除错误：未传入用户id");
         }
