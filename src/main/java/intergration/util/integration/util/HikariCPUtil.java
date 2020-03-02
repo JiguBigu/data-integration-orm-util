@@ -45,7 +45,7 @@ public  class HikariCPUtil {
     /**
      * 单例模式的线程池工具类实例
      */
-    private static HikariCPUtil hikariCPUtil;
+    private static volatile HikariCPUtil hikariCPUtil;
 
     private HikariCPUtil(){}
 
