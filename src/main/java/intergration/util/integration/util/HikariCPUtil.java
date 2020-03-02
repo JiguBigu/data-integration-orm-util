@@ -52,22 +52,24 @@ public  class HikariCPUtil {
     public static HikariCPUtil getHikariCPUtil() {
         if (hikariCPUtil == null) {
             synchronized (HikariCPUtil.class){
-                hikariCPUtil = new HikariCPUtil();
-                List<String> databases = null;
-                try {
-                    databases = new XMLUtil().getDataBases();
-                    for (String database : databases) {
-                        setDataBase(database);
-                        HikariConfig hikariConfig = getHikariConfig();
-                        HikariDataSource dataSource = new HikariDataSource(hikariConfig);
-                        dataSources.put(database, dataSource);
+                if(hikariCPUtil == null){
+                    hikariCPUtil = new HikariCPUtil();
+                    List<String> databases = null;
+                    try {
+                        databases = new XMLUtil().getDataBases();
+                        for (String database : databases) {
+                            setDataBase(database);
+                            HikariConfig hikariConfig = getHikariConfig();
+                            HikariDataSource dataSource = new HikariDataSource(hikariConfig);
+                            dataSources.put(database, dataSource);
+                        }
+                    } catch (ParserConfigurationException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (SAXException e) {
+                        e.printStackTrace();
                     }
-                } catch (ParserConfigurationException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (SAXException e) {
-                    e.printStackTrace();
                 }
             }
         }
