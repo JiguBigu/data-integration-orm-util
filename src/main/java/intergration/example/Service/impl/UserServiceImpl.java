@@ -26,6 +26,10 @@ public class UserServiceImpl implements UserService {
      * 当前类类名
      */
     private static final String CLASS_NAME = User.class.getName();
+    /**
+     * 默认插入的数据库
+     */
+    private static final String DEFAULT_DATABASE = "华中农业大学";
 
     public UserServiceImpl(){
         XMLUtil xmlUtil = new XMLUtil();
@@ -81,7 +85,7 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("未指定数据库");
         }
         if(user.getId() == null || user.getId().length() <= 0){
-            throw new RuntimeException("为指定插入学生的学号");
+            throw new RuntimeException("未指定插入学生的学号");
         }
         if(("华中农业大学".equals(databaseName))){
             databaseName = integrationSettingList.get(0).getDatabaseName();

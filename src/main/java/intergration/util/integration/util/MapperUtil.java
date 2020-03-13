@@ -1,6 +1,5 @@
 package intergration.util.integration.util;
 
-import intergration.example.entity.User;
 import intergration.util.integration.share.IntegrationSetting;
 import org.xml.sax.SAXException;
 
@@ -109,7 +108,7 @@ public class MapperUtil<T, P> {
         Connection connection = hikariCPUtil.getConnect(setting.getDatabaseName());
         //配置sql语句
         String sql = createInsertSql(entity);
-        PreparedStatement statement = null;
+        PreparedStatement statement;
         try {
             assert connection != null;
             statement = connection.prepareStatement(sql);
@@ -147,7 +146,7 @@ public class MapperUtil<T, P> {
         //通过Hikari连接池获取连接
         Connection connection = hikariCPUtil.getConnect(setting.getDatabaseName());
         //配置sql语句
-        String sql = null;
+        String sql;
         try {
             sql = "DELETE FROM " + setting.getTableName() + " WHERE " + xmlUtil.getColPrimaryKey() + "=" + primaryKey;
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -311,22 +310,5 @@ public class MapperUtil<T, P> {
         resultList.add(entity);
     }
 
-//    public static void main(String[] args) {
-//        IntegrationSetting setting = new IntegrationSetting();
-//        setting.setXmlPath("/xml/database1/users.xml");
-//        setting.setTableName("users");
-//        setting.setDatabaseName("test1");
-//
-//        User user = new User();
-//        user.setId("1293123");
-//        user.setUserName("TEST11");
-//        user.setClassName("TEST22");
-//        user.setUserSex("M");
-//
-//
-//        MapperUtil<User,String> mapperUtil = new MapperUtil<User,String>(setting, User.class);
-//        System.out.println(mapperUtil.getAll());
-//        System.out.println(mapperUtil.getOne("1"));
-//        System.out.println(mapperUtil.insert(user));
-//    }
+
 }

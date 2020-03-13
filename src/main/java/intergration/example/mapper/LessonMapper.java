@@ -10,9 +10,6 @@ import intergration.util.integration.util.MapperUtil;
  * @date 2019/10/13 20:54
  */
 public class LessonMapper extends MapperUtil<Lesson,String> {
-    public LessonMapper() {
-    }
-
     public LessonMapper(IntegrationSetting setting, Class<Lesson> tclass) {
         super(setting, tclass);
     }
